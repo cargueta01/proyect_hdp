@@ -4,19 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <style>  
+        .login{
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        img{
+            width: 200px;
+            height: auto;
+            padding-top: 150px;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <label for="usuario">Usuario</label>
-        <input type="text" name="usuario" id="usuario">
+    <div class="login">
+        <form action="" method="post">
+            <img src="img/admin2.png" alt="">
+            <div class="usuario">
+                <label for="usuario">Usuario</label>
+                <input type="text" name="usuario" id="usuario">
+            </div>
+            <br>
+            <div class="contraseña">
+                <label for="contraseña">Contraseña</label>
+                <input type="text" name="contraseña" id="contraseña">
+            </div>
+            <br>
+            <button type="submit">Acceder</button>
+        </form>
     </div>
-    <br>
-    <div>
-        <label for="contraseña">Contraseña</label>
-        <input type="text" name="contraseña" id="contraseña">
-    </div>
-    <div>
-        <a href="crud.html"><button>Acceder</button></a>
-    </div>
+    
 </body>
 </html>
