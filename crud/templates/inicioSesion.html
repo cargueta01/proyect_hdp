@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>  
+        .login{
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        img{
+            width: 200px;
+            height: auto;
+            padding-top: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login">
+        
+        <form action="{% url 'menu' %}" enctype="multipart/form-data" method="post" >
+            {% csrf_token %}
+            <img src="img/admin2.png" alt="imagen no hay">
+            <div class="usuario">
+                <label for="usuario">Usuario</label>
+                <input type="text" name="usuario" id="usuario" required>
+            </div>
+            <br>
+            <div class="contraseña">
+                <label for="contraseña">Contraseña</label>
+                <input type="text" name="contraseña" id="contraseña" required>
+            </div>
+            <br>
+            <button type="submit">Acceder</button>
+        </form>
+    </div>
+    
+</body>
+</html>
