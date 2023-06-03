@@ -8,5 +8,34 @@
 </head>
 <body>
     <h1>aqui es para eliminar</h1>
+    <table>
+        <tr>
+          <th>Facultad</th>
+          <th>Femenino </th>
+          <th>masculino </th>
+          <th>Acciones</th>
+        </tr>
+        {% for f in Facultad %}
+        <tr onclick="seleccionarElemento(this)">
+          <td>{{f.facultad}}</td>
+          <td>{{f.femenino}}</td>
+          <td>{{f.masculino}}</td>
+          <td>
+            <form id="formulario" action="{% url 'eliminar' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="elemento" value="">
+              <button type="submit">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      
+      <script>
+        function seleccionarElemento(row) {
+          var elementoSeleccionado = row.cells[0].innerHTML;
+          document.getElementById('formulario').elements['elemento'].value = elementoSeleccionado;
+        }
+      </script>
 </body>
 </html>

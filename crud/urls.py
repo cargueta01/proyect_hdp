@@ -10,5 +10,5 @@ urlpatterns =[
     path('login/menu/', views.menu, name='menu'),
     path('login/menu/agregar', views.agregar, name='agregar'),
     path('login/menu/editar', views.editar, name='editar'),
-    path('login/menu/eliminar', views.agregar, name='eliminar')
+    path('login/menu/eliminar', views.eliminar, name='eliminar')
 ]

@@ -1,8 +1,8 @@
-from email import message
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from .models import Facultad, TipoDiscapacidad
 
 # Create your views here.
 def inicio(request):
@@ -30,16 +30,41 @@ def cerrarSesion(request):
 
 @login_required
 def menu(request):
-    return render(request,'menu.html')
+    facultades = Facultad.objects.all()
+    return render(request,'menu.html', {"Facultad" : facultades})
+
+#def eleccion(seleccion, femenino, masculino):
+    #if seleccion == 1:
+     #   datos = Facultad.objects.create(facultad = seleccion, femenino = femenino, masculino = masculino)
 
 @login_required
 def agregar(request):
-    return render(request, 'agregar.html')
+    if request.method == 'POST':
+        seleccion = request.POST['seleccion']
+        femenino = request.POST['femenino']
+        masculino = request.POST['masculino']
 
+        datos = Facultad.objects.create(facultad = seleccion, femenino = femenino, masculino = masculino)
+        return redirect('agregar')
+    else:
+        facultades = Facultad.objects.all()
+        return render(request, 'agregar.html', {"Facultad" : facultades})
+ 
 @login_required
 def editar(request):
-    return render(request, 'editar.html')
+    facultades = Facultad.objects.all()
+    return render(request, 'editar.html', {"Facultad" : facultades})
 
 @login_required
 def eliminar(request):
-    return render(request, 'eliminar.html')
+    if request.method == 'POST':
+        columna1 = request.POST.get('elemento')
+        print(columna1)
+        # Realiza las operaciones de eliminació n del elemento utilizando el valor de columna1
+        # ...
+
+        return redirect('eliminar')
+    else:
+        facultades = Facultad.objects.all()
+        return render(request, 'eliminar.html', {"Facultad" : facultades})
+    

@@ -8,5 +8,41 @@
 </head>
 <body>
     <h1>aqui es para agregar</h1>
+    <form action="" enctype="multipart/form-data" method="post" >
+        {% csrf_token %}
+        <div class="facultad">
+            <label for="facultad">facultad</label>
+            <input type="text" name="seleccion" id="username" required>
+        </div>
+        <br>
+        <div class="femenino">
+            <label for="femenino">femenino</label>
+            <input type="text" name="femenino" id="password" required>
+        </div>
+        <br>
+        <div class="masculino">
+            <label for="masculino">masculino</label>
+            <input type="text" name="masculino" id="password" required>
+        </div>
+        <br>
+        <button type="submit">Agregar</button>
+    </form>
+    <br>
+        <div class="tabla">
+        <table border="1" cellspacing="0" cellpadding="5">
+            <th>Facultad</th>
+            <th>Femenino</th>
+            <th>masculino</th>
+            <th>total</th>
+            {% for f in Facultad %}
+            <tr>
+                <td>{{f.facultad}}</td>
+                <td>{{f.femenino}}</td>
+                <td>{{f.masculino}}</td>
+                <td>{{f.femenino|add:f.masculino}}</td>
+            </tr>
+            {% endfor %} 
+        </table>
+    </div>
 </body>
 </html>

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,7 @@
         
         <form action="" enctype="multipart/form-data" method="post" >
             {% csrf_token %}
-            <img src="img/admin2.png" alt="imagen no hay">
+            <img src="{% static 'img/admin2.png' %}" alt="imagen no hay">
             <div class="usuario">
                 <label for="usuario">Usuario</label>
                 <input type="text" name="username" id="username" required>
