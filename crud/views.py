@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .models import Facultad, TipoDiscapacidad
+from django.contrib import messages
 
 # Create your views here.
 def inicio(request):
@@ -58,11 +59,10 @@ def editar(request):
 @login_required
 def eliminar(request):
     if request.method == 'POST':
-        columna1 = request.POST.get('elemento')
-        print(columna1)
-        # Realiza las operaciones de eliminació n del elemento utilizando el valor de columna1
-        # ...
-
+        seleccion = request.POST.get('btnradio')
+        facultad = Facultad.objects.get(idFacultad = seleccion)
+        facultad.delete()
+        messages.success(request, 'Eliminacion completa')
         return redirect('eliminar')
     else:
         facultades = Facultad.objects.all()
