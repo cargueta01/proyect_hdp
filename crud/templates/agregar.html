@@ -5,37 +5,96 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>agregar</title>
+    <style>
+        td, th{text-align: center;}
+        .campoDiscapacitados{
+            border: 1px solid black;
+            width: 30%;
+            margin-left: 400px;
+            margin-top: -100px;
+        }
+        .campoFacultad{
+            border: 1px solid black;
+            width: 30%;
+
+        }
+    </style>
 </head>
 <body>
     <h1>aqui es para agregar</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mensaje">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
     <form action="" enctype="multipart/form-data" method="post" >
         {% csrf_token %}
-        <div class="facultad">
-            <label for="facultad">facultad</label>
-            <input type="text" name="seleccion" id="username" required>
+        <div class="campoFacultad">
+            <div class="Nombrefacultad">
+                <label for="facultad">facultad</label>
+                <select name="ListFacultad" id="idfacultad" required>
+                    <option value="FCH" selected>Facultad de Ciencias y Humanidades</option>
+                    <option value="FM">Facultad de Medicina</option>
+                    <option value="FIA">Facultad de Ingenieria y Arquitectura</option>
+                    <option value="FE">Facultad de C.C. Económicas</option> 
+                    <option value="FCA">Facultad de Agronomia</option>
+                    <option value="FJCS">Facultad de Jurisprudencia y C.C. Sociales</option>
+                    <option value="FQF">Facultad de Quimica y Farmacia</option>
+                    <option value="FO">Facultad de Odontologia</option>
+                    <option value="FCNMyM">Facultad de Matematicas y C.C. naturales</option>
+                    <option value="FMOri">Facultad Multidisciplinaria Oriental</option>
+                    <option value="FMOcc">Facultad Multidisciplinaria Occidental </option>
+                </select>
+            </div>
+            <br>
+            <div class="femenino">
+                <label for="femenino">Femeninas</label>
+                <input type="number" name="femenino" id="femenino" required>
+            </div>
+            <br>
+            <div class="masculino">
+                <label for="masculino">Masculinos</label>
+                <input type="number" name="masculino" id="masculino" required>
+            </div>
         </div>
-        <br>
-        <div class="femenino">
-            <label for="femenino">femenino</label>
-            <input type="text" name="femenino" id="password" required>
-        </div>
-        <br>
-        <div class="masculino">
-            <label for="masculino">masculino</label>
-            <input type="text" name="masculino" id="password" required>
+        <div class="campoDiscapacitados">
+            <div class="Nombrefacultad">
+                <label for="discapacidad">Discapacidad</label>
+                <select name="ListDiscapacidad" id="iddiscapacidad" required>
+                    <option value="F" selected>Fisica</option>
+                    <option value="A">Auditiva</option>
+                    <option value="V">Visual</option>
+                    <option value="I">Intelectual</option> 
+                    <option value="P">Psicosocial</option>
+                </select>
+            </div>
+            <br>
+            <div class="femenino">
+                <label for="femenino">Femeninas</label>
+                <input type="number" name="femenino2" id="password" required>
+            </div>
+            <br>
+            <div class="masculino">
+                <label for="masculino">Masculinos</label>
+                <input type="number" name="masculino2" id="password" required>
+            </div>
         </div>
         <br>
         <button type="submit">Agregar</button>
     </form>
     <br>
-        <div class="tabla">
+        <div class="tablaFacultad">
             <table border="1" cellspacing="0" cellpadding="5">
+                <th>Fila</th>
+                <th>Identificador</th>
                 <th>Facultad</th>
-                <th>Femenino</th>
-                <th>masculino</th>
+                <th>Femeninas</th>
+                <th>Masculinos</th>
                 <th>total</th>
-                {% for f in Facultad %}
+                {% for f in Facultades %}
                 <tr>
+                    <td>{{ forloop.counter }} </td>
+                    <td>{{ f.idFacultad }}</td>
                     <td>{{f.facultad}}</td>
                     <td>{{f.femenino}}</td>
                     <td>{{f.masculino}}</td>
@@ -44,5 +103,36 @@
                 {% endfor %} 
             </table>
         </div>
+        <br>
+        <div class="tablaDiscacidad">
+            <table border="1" cellspacing="0" cellpadding="5">
+                <th>Fila</th>
+                <th>Identificador</th>
+                <th>Discapacidad</th>
+                <th>Femeninas</th>
+                <th>Masculinos</th>
+                <th>total</th>
+                {% for f in Discapacitados %}
+                <tr>
+                    <td>{{ forloop.counter }} </td>
+                    <td>{{ f.idDiscapacidad }}</td>
+                    <td>{{f.discapacidad}}</td>
+                    <td>{{f.femenino}}</td>
+                    <td>{{f.masculino}}</td>
+                    <td>{{f.femenino|add:f.masculino}}</td>
+                </tr>
+                {% endfor %} 
+            </table>
+        </div>
 </body>
+
+<script>
+    // Función para ocultar el mensaje después de 5 segundos
+    setTimeout(function() {
+      var messages = document.getElementsByClassName('mensaje');
+      if (messages.length > 0) {
+        messages[0].style.display = 'none';
+      }
+    }, 5000);  // 5000 milisegundos = 5 segundos
+</script>
 </html>

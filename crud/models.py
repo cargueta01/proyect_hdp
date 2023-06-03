@@ -16,5 +16,8 @@ class TipoDiscapacidad(models.Model):
     discapacidad = models.CharField(max_length=100)
     femenino = models.IntegerField()
     masculino = models.IntegerField()
+    def __str__(self):
+        texto = {0}
+        return self.discapacidad
 
     

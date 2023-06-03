@@ -12,15 +12,40 @@
     <a href="{% url 'cerrarSesion' %}"><button>Cerrar sesion</button></a>
     <br>
     <br>
-    <div class="tabla">
+    <div class="tablaFacultad">
         <table border="1" cellspacing="0" cellpadding="5">
+            <th>Fila</th>
+            <th>Identificador</th>
             <th>Facultad</th>
-            <th>Femenino</th>
-            <th>masculino</th>
+            <th>Femeninas</th>
+            <th>Masculinos</th>
             <th>total</th>
-            {% for f in Facultad %}
+            {% for f in Facultades %}
             <tr>
+                <td>{{ forloop.counter }} </td>
+                <td>{{ f.idFacultad }}</td>
                 <td>{{f.facultad}}</td>
+                <td>{{f.femenino}}</td>
+                <td>{{f.masculino}}</td>
+                <td>{{f.femenino|add:f.masculino}}</td>
+            </tr>
+            {% endfor %} 
+        </table>
+    </div>
+    <br>
+    <div class="tablaDiscacidad">
+        <table border="1" cellspacing="0" cellpadding="5">
+            <th>Fila</th>
+            <th>Identificador</th>
+            <th>Discapacidad</th>
+            <th>Femeninas</th>
+            <th>Masculinos</th>
+            <th>total</th>
+            {% for f in Discapacitados %}
+            <tr>
+                <td>{{ forloop.counter }} </td>
+                <td>{{ f.idDiscapacidad }}</td>
+                <td>{{f.discapacidad}}</td>
                 <td>{{f.femenino}}</td>
                 <td>{{f.masculino}}</td>
                 <td>{{f.femenino|add:f.masculino}}</td>

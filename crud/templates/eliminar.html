@@ -11,33 +11,59 @@
 </head>
 <body>
     <h1>aqui es para eliminar</h1>
-    <div class="tabla">
+    
         <form action="" method="post">
             {% csrf_token %}
-            <table border="1" cellspacing="0" cellpadding="5">
-                <th>fila</th>
-                <th>identificador</th>
-                <th>Facultad</th>
-                <th>Femenino</th>
-                <th>masculino</th>
-                <th>total</th>
-                {% for f in Facultad %}
-                <tr>
-                    <td>
-                        <input type="radio" name="btnradio" id="" value="{{f.idFacultad}}">->
-                        {{ forloop.counter }}
-                    </td>
-                    <td>{{ f.idFacultad }}</td>
-                    <td>{{f.facultad}}</td>
-                    <td>{{f.femenino}}</td>
-                    <td>{{f.masculino}}</td>
-                    <td>{{f.femenino|add:f.masculino}}</td>
-                </tr>
-                {% endfor %} 
-            </table>
+            <div class="tablaFacultad">
+                <table border="1" cellspacing="0" cellpadding="5">
+                    <th>fila</th>
+                    <th>identificador</th>
+                    <th>Facultad</th>
+                    <th>Femenino</th>
+                    <th>masculino</th>
+                    <th>total</th>
+                    {% for f in Facultades %}
+                    <tr>
+                        <td>
+                            <input type="radio" name="btnradio" id="" value="{{f.idFacultad}}">->
+                            {{ forloop.counter }}
+                        </td>
+                        <td>{{ f.idFacultad }}</td>
+                        <td>{{f.facultad}}</td>
+                        <td>{{f.femenino}}</td>
+                        <td>{{f.masculino}}</td>
+                        <td>{{f.femenino|add:f.masculino}}</td>
+                    </tr>
+                    {% endfor %} 
+                </table>
+            </div>
+            <br>
+            <div class="tablaDiscacidad">
+                <table border="1" cellspacing="0" cellpadding="5">
+                    <th>Fila</th>
+                    <th>Identificador</th>
+                    <th>Discapacidad</th>
+                    <th>Femeninas</th>
+                    <th>Masculinos</th>
+                    <th>total</th>
+                    {% for f in Discapacitados %}
+                    <tr>
+                        <td>
+                            <input type="radio" name="btnradio2" id="" value="{{f.idDiscapacidad}}">->
+                            {{ forloop.counter }}
+                        </td>
+                        <td>{{ f.idDiscapacidad }}</td>
+                        <td>{{f.discapacidad}}</td>
+                        <td>{{f.femenino}}</td>
+                        <td>{{f.masculino}}</td>
+                        <td>{{f.femenino|add:f.masculino}}</td>
+                    </tr>
+                    {% endfor %} 
+                </table>
+            </div>
             <button type="submit">Eliminar</button>
         </form>   
-    </div>
     
+
 </body>
 </html>
