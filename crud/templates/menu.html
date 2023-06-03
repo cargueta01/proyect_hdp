@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>menu</title>
+    <title>Crud</title>
 </head>
 <body>
-    <h1>esto es el menu</h1>
+    <a href="{% url 'agregar' %}"><button>Agregar</button></a>
+    <a href="{% url 'editar' %}"><button>Modificar</button></a>
+    <a href="{% url 'eliminar' %}"><button>Eliminar</button></a>
+    <a href="{% url 'cerrarSesion' %}"><button>Cerrar sesion</button></a>
 </body>
 </html>

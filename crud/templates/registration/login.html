@@ -20,17 +20,17 @@
 <body>
     <div class="login">
         
-        <form action="{% url 'menu' %}" enctype="multipart/form-data" method="post" >
+        <form action="" enctype="multipart/form-data" method="post" >
             {% csrf_token %}
             <img src="img/admin2.png" alt="imagen no hay">
             <div class="usuario">
                 <label for="usuario">Usuario</label>
-                <input type="text" name="usuario" id="usuario" required>
+                <input type="text" name="username" id="username" required>
             </div>
             <br>
             <div class="contraseña">
                 <label for="contraseña">Contraseña</label>
-                <input type="text" name="contraseña" id="contraseña" required>
+                <input type="password" name="password" id="password" required>
             </div>
             <br>
             <button type="submit">Acceder</button>
