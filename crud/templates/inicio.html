@@ -23,49 +23,60 @@
             width: 200px;
             height: 50px;
             position: relative;
-            top: -200px;
-
+            top: 0px;
+            background-color: transparent;
+            border-color: transparent;
+        }
+        button:hover {
+        background-color: #266fc2; /* Cambio de color al pasar el cursor */
+        
         }
         .consulta{
             position: relative;
-            left: 600px;
+            left: 980px;
+            padding-top: 10px;
         }
         .login{
-            padding-left: 75px;
+            padding-left: 0px;
+            padding-top: 10px;
+        }
+        .botones{
+            width: 100%;
+            background-color: rgba(82, 82, 150, 0.5);
+            top: -10px;
         }
 
     </style>
 </head>
 <body>
+    <div class=" botones">
+        <a class="login" href="{% url 'inicioSesion' %}"><button>Iniciar sesion</button></a>
+        <a class="consulta" href="{% url 'consulta' %}"><button>Consultar informacion</button></a>
+    </div>
     <h1>Informacion sobre la cantidad de estudiantes con discapacidad que
         entran a estudios universitarios
     </h1>
     <div class="info">
         <fieldset>
             <legend>sobre que trata este sitio</legend>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut tincidunt sem. 
-                Mauris placerat vehicula velit, eget consectetur nisi consectetur sit amet. Sed efficitur 
-                ullamcorper ipsum, vel cursus nisi bibendum in. Duis semper tortor sed nisi luctus luctus.
-                 Nullam mattis turpis ut facilisis sagittis. Integer luctus, libero sit amet tempor 
-                 ullamcorper, mauris lorem faucibus mauris, non posuere lacus elit in mi. Fusce tristique 
-                 ultricies risus. Curabitur dapibus dui eget lorem tempus, vitae pharetra libero 
-                 consequat. Mauris malesuada ultrices est non placerat. Nulla facilisi.</p>
-            <p>Phasellus sit amet nulla eget nulla accumsan tristique. Mauris non libero at risus 
-                convallis convallis. Integer elementum metus id gravida faucibus. Vestibulum ante 
-                ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris vestibulum 
-                mi vel dui faucibus, vitae placerat felis euismod. Integer a quam fermentum, condimentum 
-                urna eu, sagittis sapien. Fusce fermentum urna non tempor commodo. Nullam pretium 
-                facilisis consectetur. Mauris vitae ipsum sit amet orci pharetra egestas. Sed auctor quam 
-                nec mi placerat, sit amet scelerisque sapien consequat. Aliquam efficitur, arcu nec 
-                egestas vestibulum, mauris ipsum finibus ipsum, vel convallis quam massa id sapien. 
-                Donec tristique congue mauris a efficitur.</p>
+            <p>
+                "Bienvenidos a nuestra presentación del programa de información estudiantil de la Universidad de El Salvador. En este programa, hemos desarrollado una plataforma que recopila datos esenciales sobre los estudiantes, centrándonos en aspectos clave como género, facultad, discapacidad y año de estudio junto con la ayuda de la UES por medio de la Unidad de atención a estudiantes con discapacidad.
+                Nuestro objetivo es proporcionar una herramienta eficiente y accesible para obtener estadísticas actualizadas sobre la composición de la población estudiantil en términos de género. Podrás analizar la participación de hombres y mujeres en cada facultad de la universidad, identificar posibles desequilibrios y tomar decisiones basadas en datos para promover la igualdad y la equidad.
+                Además, nuestro programa también ofrece información detallada sobre las diferentes facultades de la universidad. Podrás explorar los datos y obtener una visión general de la distribución de los estudiantes en cada una de ellas. Esto permitirá comprender mejor la diversidad académica de la institución y tomar medidas para fomentar la participación estudiantil en áreas específicas.
+                Otro aspecto importante de nuestro programa es la inclusión de información sobre estudiantes con discapacidad. Reconocemos la importancia de la accesibilidad y la igualdad de oportunidades en la educación. Hemos recopilado datos que permitirán conocer la cantidad y el tipo de discapacidades presentes en la comunidad estudiantil, para que puedas identificar necesidades específicas y trabajar en la implementación de medidas inclusivas.
+            </p>
+            <br>
+            <p>
+                Por último, nuestro programa también brinda una visión general del año de estudio de los estudiantes. Podrás obtener estadísticas sobre la distribución de los alumnos en cada nivel académico, lo cual puede ser de gran utilidad para planificar programas de apoyo y recursos adaptados a las necesidades de cada grupo.
+                En conclusión, nuestro programa de información estudiantil de la Universidad de El Salvador es una valiosa herramienta para acceder y analizar datos relevantes sobre género, facultad, discapacidad y año de estudio. Te invitamos a aprovechar esta información para tomar decisiones informadas, promover la igualdad de género, fortalecer la diversidad académica, fomentar la inclusión y diseñar estrategias efectivas para brindar una educación equitativa.
+            </p>
         </fieldset>
     </div>
     <div class="imagen">
         <img src="{% static 'img/imagen.jpg' %}" alt="No disponible">
     </div>
     <br>
-    <a class="login" href="{% url 'inicioSesion' %}"><button>Iniciar sesion</button></a>
-    <a class="consulta" href="busqueda.html"><button>Consultar informacion</button></a>
+    
+    
 </body>
 </html>

@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .models import Facultad, TipoDiscapacidad
 from django.contrib import messages
+from django.db.models import Q
 
 nombre_facultades = {
     'FCH' : 'Facultad de Ciencias y Humanidades',
@@ -16,7 +17,8 @@ nombre_facultades = {
     'FO' : 'Facultad de Odontologia',
     'FCNMyM' : 'Facultad de Matematicas y C.C. naturales',
     'FMOri' : 'Facultad Multidisciplinaria Oriental',
-    'FMOcc' : 'Facultad Multidisciplinaria Occidental'
+    'FMOcc' : 'Facultad Multidisciplinaria Occidental',
+    'ED' : 'Educacion a distancia'
 }
 
 nombre_discapacidades = {
@@ -45,11 +47,9 @@ def inicioSesion(request):
     else:
         return render(request, 'registration/login.html')
 
-
 def cerrarSesion(request):
     logout(request)
     return redirect('inicio')
-
 
 @login_required
 def menu(request):
@@ -64,14 +64,15 @@ def agregar(request):
         seleccion = nombre_facultades[request.POST.get('ListFacultad')]
         femenino = request.POST.get('femenino')
         masculino = request.POST.get('masculino')
-        Facultad.objects.create(facultad = seleccion, femenino = femenino, masculino = masculino)
+        my_anio = request.POST.get('ListAnio')
+        Facultad.objects.create(facultad = seleccion, femenino = femenino, masculino = masculino, anio = my_anio)
 
         #para discapacidad
         seleccion2 = nombre_discapacidades[request.POST.get('ListDiscapacidad')]
         femenino2 = request.POST.get('femenino2')
         masculino2 = request.POST.get('masculino2')
-        TipoDiscapacidad.objects.create(discapacidad = seleccion2, femenino = femenino2, masculino = masculino2)
-
+        #TipoDiscapacidad.objects.create(discapacidad = seleccion2, femenino = femenino2, masculino = masculino2, anio = my_anio)
+        messages.success(request, 'Filas modificada con exito!!')
         return redirect('agregar')
     else:
         facultades = Facultad.objects.all()
@@ -80,7 +81,6 @@ def agregar(request):
  
 @login_required
 def editar(request):
-    contador = 0
     if request.method == 'POST':
         try:
             #para facultades
@@ -89,6 +89,7 @@ def editar(request):
             la_facultad.facultad = nombre_facultades[request.POST.get('ListFacultad')]
             la_facultad.femenino = request.POST.get('femenino')
             la_facultad.masculino = request.POST.get('masculino')
+            la_facultad.anio = request.POST.get('ListAnio')
             la_facultad.save()
 
             #para discapacitados
@@ -97,15 +98,16 @@ def editar(request):
             discapacidades.discapacidad = nombre_discapacidades[request.POST.get('ListDiscapacidad')]
             discapacidades.femenino = request.POST.get('femenino2')
             discapacidades.masculino = request.POST.get('masculino2')
+            discapacidades.anio = request.POST.get('ListAnio')
             discapacidades.save()
 
             messages.success(request, 'Filas modificada con exito!!')
 
             facultades = Facultad.objects.all()
             discapacitados = TipoDiscapacidad.objects.all()
-            return render(request, 'editar.html', {"Facultades" : facultades, "Discapacitados" : discapacitados})
+            return redirect('editar')
         except Exception as e:
-            messages.error(request, 'No ha seleccionado una fila')
+            messages.error(request, 'No ha seleccionado dos fila')
             return redirect('editar')
     else:
         facultades = Facultad.objects.all()
@@ -115,20 +117,52 @@ def editar(request):
 @login_required
 def eliminar(request):
     if request.method == 'POST':
-        #para facultad
-        seleccion = request.POST.get('btnradio')
-        facultad = Facultad.objects.get(idFacultad = seleccion)
-        facultad.delete()
+        try:
+            #para facultad
+            seleccion = request.POST.get('btnradio')
+            facultad = Facultad.objects.get(idFacultad = seleccion)
 
-        #para discapacitados
-        seleccion2 = request.POST.get('btnradio2')
-        discapacidades = TipoDiscapacidad.objects.get(idDiscapacidad = seleccion2)
-        discapacidades.delete()
+            #para discapacitados
+            seleccion2 = request.POST.get('btnradio2')
+            discapacidades = TipoDiscapacidad.objects.get(idDiscapacidad = seleccion2)
 
-        messages.success(request, 'Eliminaciones completa')
-        return redirect('eliminar')
+            discapacidades.delete()
+            facultad.delete()
+
+            messages.success(request, 'Eliminaciones completa')
+            return redirect('eliminar')
+        except Exception as e:
+            messages.error(request, 'No seleccionado dos filas fila')
+            return redirect('eliminar')
     else:
         facultades = Facultad.objects.all()
         discapacitados = TipoDiscapacidad.objects.all()
         return render(request, 'eliminar.html', {"Facultades" : facultades, "Discapacitados" : discapacitados})
-    
+
+
+def consulta(request):
+    facultades = Facultad.objects.all()
+    discapacitados = TipoDiscapacidad.objects.all()
+    if request.method == 'POST':
+        general = request.POST.get('cbx')
+        if general == 'cbxTodo':
+           return render(request, 'consulta.html', {"Facultades" : facultades, "Discapacitados" : discapacitados})
+        else :
+            f_resultado = None
+            d_resultado = None
+            f_facultad = request.POST.get('ListFacultad')
+            d_discapacidad = request.POST.get('ListDiscapacidad')
+            v_anio = request.POST.get('Listfecha')
+            if f_facultad == 'Todas':
+                f_resultado = Facultad.objects.filter(anio = int(v_anio))
+            else:
+                f_resultado = Facultad.objects.filter(facultad = nombre_facultades[f_facultad] ,anio = int(v_anio))
+            if d_discapacidad == 'Todas':
+                d_resultado = TipoDiscapacidad.objects.filter(anio = int(v_anio))
+            else:
+                d_resultado = TipoDiscapacidad.objects.filter(discapacidad = nombre_discapacidades[d_discapacidad] ,anio = int(v_anio))
+            print(f"esto es el resultado1: {f_resultado}")
+            print(f"esto es el resultado2: {d_resultado}")
+            return render(request, 'consulta.html', {"Facultades" : f_resultado, "Discapacitados" : d_resultado})
+    else:
+        return render(request, 'consulta.html', {"Facultades" : facultades, "Discapacitados" : discapacitados})

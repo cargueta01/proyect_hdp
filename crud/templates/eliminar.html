@@ -7,11 +7,86 @@
     <title>eliminar</title>
     <style>
         td{text-align: center;}
+        .barra{
+            width: 100%;
+            background-color: rgba(82, 82, 150, 0.5);
+            padding-top: 15px;
+        }
+        button{
+            width: 200px;
+            height: 50px;
+            position: relative;
+            top: -10px;
+            background-color: transparent;
+            border-color: transparent;
+        }
+        button:hover {
+        background-color: #266fc2; /* Cambio de color al pasar el cursor */
+        }
+        .logout{
+            padding-left:770px;
+        }
+
+        .tablaFacultad{
+            border: 1px solid black;
+            width: 47%;
+            text-align: center;
+            position: relative;
+            top: 20px;
+        }
+
+        .tablaDiscacidad{
+            border: 1px solid black;
+            width: 508px;
+            text-align: center;
+            position: relative;
+            top: -2355px;
+            left: 670px;
+        }
+        .campoFacultad{
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 370px;
+            height: 150px;
+            padding-left: 20px;
+            padding-top: 10px;
+        }
+
+        .campoDiscapacitados{
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 320px;
+            height: 150px;
+            position: relative;
+            left: 400px;
+            top: -182px;
+            padding-left: 20px;
+            padding-top: 10px;
+        }
+        .submit{
+            position: relative;
+            top: -3125px;
+            left: 450px;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(126, 56, 56, 0.2);
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
-    <h1>aqui es para eliminar</h1>
-    
+    <div class="barra">
+        <a href="{% url 'agregar' %}"><button>Agregar</button></a>
+        <a href="{% url 'editar' %}"><button>Modificar</button></a>
+        <a class="logout" href="{% url 'cerrarSesion' %}"><button>Cerrar sesion</button></a>
+    </div>
+    <h1>Vista para eliminar</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mensaje">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
         <form action="" method="post">
             {% csrf_token %}
             <div class="tablaFacultad">
@@ -61,9 +136,16 @@
                     {% endfor %} 
                 </table>
             </div>
-            <button type="submit">Eliminar</button>
+            <button class="submit" type="submit">Eliminar</button>
         </form>   
-    
-
 </body>
+<script>
+    // Función para ocultar el mensaje después de 5 segundos
+    setTimeout(function() {
+      var messages = document.getElementsByClassName('mensaje');
+      if (messages.length > 0) {
+        messages[0].style.display = 'none';
+      }
+    }, 5000);  // 5000 milisegundos = 5 segundos
+</script>
 </html>

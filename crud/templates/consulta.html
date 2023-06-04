@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta</title>
+    <style>
+        table, td, th{border: 1px solid black;}
+        button{
+            width: 200px;
+            height: 50px;
+            position: relative;
+            top: 0px;
+            background-color: transparent;
+            border-color: transparent;
+            color: black;
+        }
+        button:hover {
+        background-color: #266fc2; /* Cambio de color al pasar el cursor */
+        
+        }
+        .barra{
+            width: 100%;
+            background-color: rgba(82, 150, 141, 0.5);
+        }
+        .cajaFacultad, .cajaDiscapacidad, .cajaAño{
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 150px;
+            height: 50px;
+        }
+        .cajaFacultad{
+            position: relative;
+            left: 345px;
+            width: 300px;
+            top: -105px;
+        }
+        .cajaDiscapacidad{
+            position: relative;
+            top: -52px;
+            left: 170px;
+        }
+        .ultimo{
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            position: relative;
+            width: 150px;
+            height: 30px;
+            top: -80px;
+        }
+        .buscar{
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            position: relative;
+            width: 150px;
+            height: 35px;
+            top: -115px;
+            left: 180px;
+        }
+        .tablaFacultad{
+            position: relative;
+            top: -100px;
+        }
+        .tablaDiscapacidad{
+            position:relative;
+            top: -100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="barra">
+        <a href="{% url 'inicio' %}"><button>Inicio</button></a>
+
+    </div>
+    <h1>Bienvenido, consulta la informacion que queras</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="cajaAño">
+            <label for="año">Año</label>
+            <select name="Listfecha" id="idAño" >
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+            </select>
+        </div>
+        <div class="cajaDiscapacidad">
+            <label for="discapacidad">Discapacidad</label>
+            <select name="ListDiscapacidad" id="iddiscapacidad" >
+                <option value="Todas">Todas</option>
+                <option value="F">Fisica</option>
+                <option value="A">Auditiva</option>
+                <option value="V">Visual</option>
+                <option value="I">Intelectual</option>
+                <option value="P">Psicosocial</option>
+            </select>
+        </div>
+        <div class="cajaFacultad">
+            <label for="facultad">Facultad</label>
+            <select name="ListFacultad" id="idfacultad">
+                <option value="Todas">Todas</option>
+                <option value="FCH">Facultad de Ciencias y Humanidades</option>
+                <option value="FM">Facultad de Medicina</option>
+                <option value="FIA">Facultad de Ingenieria y Arquitectura</option>
+                <option value="FE">Facultad de C.C. Económicas</option> 
+                <option value="FCA">Facultad de Agronomia</option>
+                <option value="FJCS">Facultad de Jurisprudencia y C.C. Sociales</option>
+                <option value="FQF">Facultad de Quimica y Farmacia</option>
+                <option value="FO">Facultad de Odontologia</option>
+                <option value="FCNMyM">Facultad de Matematicas y C.C. naturales</option>
+                <option value="FMOri">Facultad Multidisciplinaria Oriental</option>
+                <option value="FMOcc">Facultad Multidisciplinaria Occidental </option>
+                <option value="ED">Educacion a distancia </option>
+            </select>
+        </div>
+        <div class="ultimo">
+            <input type="checkbox" name="cbx" id="" value="cbxTodo">Mostrar todo
+        </div>
+        <button class="buscar" type="submit">Buscar</button>
+    </form>
+    <div class="tablaFacultad">
+        <table cellspacing="0" cellpadding="5">
+            <th>Fila</th>
+            <th>Identificador</th>
+            <th>Facultad</th>
+            <th>Femeninas</th>
+            <th>Masculinos</th>
+            <th>Año</th>
+            <th>total</th>
+            {% for f in Facultades %}
+            <tr>
+                <td>{{ forloop.counter }} </td>
+                <td>{{ f.idFacultad }}</td>
+                <td>{{f.facultad}}</td>
+                <td>{{f.femenino}}</td>
+                <td>{{f.masculino}}</td>
+                <td>{{f.anio}}</td>
+                <td>{{f.femenino|add:f.masculino}}</td>
+            </tr>
+            {% endfor %} 
+        </table>
+    </div>
+    <br>
+    <div class="tablaDiscapacidad">
+        <table cellspacing="0" cellpadding="5">
+            <th>Fila</th>
+            <th>Identificador</th>
+            <th>Discapacidad</th>
+            <th>Femeninas</th>
+            <th>Masculinos</th>
+            <th>Año</th>
+            <th>total</th>
+            {% for f in Discapacitados %}
+            <tr>
+                <td>{{ forloop.counter }} </td>
+                <td>{{ f.idDiscapacidad }}</td>
+                <td>{{f.discapacidad}}</td>
+                <td>{{f.femenino}}</td>
+                <td>{{f.masculino}}</td>
+                <td>{{f.anio}}</td>
+                <td>{{f.femenino|add:f.masculino}}</td>
+            </tr>
+            {% endfor %} 
+        </table>
+    </div>
+    
+</body>
+</html>

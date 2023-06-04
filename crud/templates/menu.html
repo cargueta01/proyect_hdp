@@ -4,21 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crud</title>
+    <style>
+        .barra{
+            width: 100%;
+            background-color: rgba(82, 82, 150, 0.5);
+            padding-top: 15px;
+        }
+        button{
+            width: 200px;
+            height: 50px;
+            position: relative;
+            top: -10px;
+            background-color: transparent;
+            border-color: transparent;
+        }
+        button:hover {
+        background-color: #266fc2; /* Cambio de color al pasar el cursor */
+        }
+        .logout{
+            padding-left: 550px;
+        }
+
+        .tablaFacultad{
+            border: 1px solid black;
+            width: 47%;
+            text-align: center;
+        }
+        th, td{
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body>
-    <a href="{% url 'agregar' %}"><button>Agregar</button></a>
-    <a href="{% url 'editar' %}"><button>Modificar</button></a>
-    <a href="{% url 'eliminar' %}"><button>Eliminar</button></a>
-    <a href="{% url 'cerrarSesion' %}"><button>Cerrar sesion</button></a>
+    <div class="barra">
+        <a href="{% url 'agregar' %}"><button>Agregar</button></a>
+        <a href="{% url 'editar' %}"><button>Modificar</button></a>
+        <a href="{% url 'eliminar' %}"><button>Eliminar</button></a>
+        <a class="logout" href="{% url 'cerrarSesion' %}"><button>Cerrar sesion</button></a>
+    </div>
+    <h1>Crud </h1>
     <br>
     <br>
     <div class="tablaFacultad">
-        <table border="1" cellspacing="0" cellpadding="5">
+        <table cellspacing="0" cellpadding="5">
             <th>Fila</th>
             <th>Identificador</th>
             <th>Facultad</th>
             <th>Femeninas</th>
             <th>Masculinos</th>
+            <th>Año</th>
             <th>total</th>
             {% for f in Facultades %}
             <tr>
@@ -27,6 +61,7 @@
                 <td>{{f.facultad}}</td>
                 <td>{{f.femenino}}</td>
                 <td>{{f.masculino}}</td>
+                <td>{{f.anio}}</td>
                 <td>{{f.femenino|add:f.masculino}}</td>
             </tr>
             {% endfor %} 
@@ -40,6 +75,7 @@
             <th>Discapacidad</th>
             <th>Femeninas</th>
             <th>Masculinos</th>
+            <th>Año</th>
             <th>total</th>
             {% for f in Discapacitados %}
             <tr>
@@ -48,6 +84,7 @@
                 <td>{{f.discapacidad}}</td>
                 <td>{{f.femenino}}</td>
                 <td>{{f.masculino}}</td>
+                <td>{{f.anio}}</td>
                 <td>{{f.femenino|add:f.masculino}}</td>
             </tr>
             {% endfor %} 
