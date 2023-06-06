@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eliminar</title>
+    <style>
+        td{text-align: center;}
+        .barra{
+            width: 100%;
+            background-color: rgba(82, 82, 150, 0.5);
+            padding-top: 15px;
+        }
+        button{
+            width: 200px;
+            height: 50px;
+            position: relative;
+            top: -10px;
+            background-color: transparent;
+            border-color: transparent;
+        }
+        button:hover {
+        background-color: #266fc2; /* Cambio de color al pasar el cursor */
+        }
+        .logout{
+            padding-left:770px;
+        }
+
+        .tablaFacultad{
+            border: 1px solid black;
+            width: 47%;
+            text-align: center;
+            position: relative;
+            top: 20px;
+        }
+
+        .tablaDiscacidad{
+            border: 1px solid black;
+            width: 508px;
+            text-align: center;
+            position: relative;
+            top: -2355px;
+            left: 670px;
+        }
+        .campoFacultad{
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 370px;
+            height: 150px;
+            padding-left: 20px;
+            padding-top: 10px;
+        }
+
+        .campoDiscapacitados{
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 320px;
+            height: 150px;
+            position: relative;
+            left: 400px;
+            top: -182px;
+            padding-left: 20px;
+            padding-top: 10px;
+        }
+        .submit{
+            position: relative;
+            top: -3125px;
+            left: 450px;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(126, 56, 56, 0.2);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="barra">
+        <a href="{% url 'agregar' %}"><button>Agregar</button></a>
+        <a href="{% url 'editar' %}"><button>Modificar</button></a>
+        <a class="logout" href="{% url 'cerrarSesion' %}"><button>Cerrar sesion</button></a>
+    </div>
+    <h1>Vista para eliminar</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mensaje">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="tablaFacultad">
+                <table border="1" cellspacing="0" cellpadding="5">
+                    <th>fila</th>
+                    <th>identificador</th>
+                    <th>Facultad</th>
+                    <th>Femenino</th>
+                    <th>masculino</th>
+                    <th>total</th>
+                    {% for f in Facultades %}
+                    <tr>
+                        <td>
+                            <input type="radio" name="btnradio" id="" value="{{f.idFacultad}}">->
+                            {{ forloop.counter }}
+                        </td>
+                        <td>{{ f.idFacultad }}</td>
+                        <td>{{f.facultad}}</td>
+                        <td>{{f.femenino}}</td>
+                        <td>{{f.masculino}}</td>
+                        <td>{{f.femenino|add:f.masculino}}</td>
+                    </tr>
+                    {% endfor %} 
+                </table>
+            </div>
+            <br>
+            <div class="tablaDiscacidad">
+                <table border="1" cellspacing="0" cellpadding="5">
+                    <th>Fila</th>
+                    <th>Identificador</th>
+                    <th>Discapacidad</th>
+                    <th>Femeninas</th>
+                    <th>Masculinos</th>
+                    <th>total</th>
+                    {% for f in Discapacitados %}
+                    <tr>
+                        <td>
+                            <input type="radio" name="btnradio2" id="" value="{{f.idDiscapacidad}}">->
+                            {{ forloop.counter }}
+                        </td>
+                        <td>{{ f.idDiscapacidad }}</td>
+                        <td>{{f.discapacidad}}</td>
+                        <td>{{f.femenino}}</td>
+                        <td>{{f.masculino}}</td>
+                        <td>{{f.femenino|add:f.masculino}}</td>
+                    </tr>
+                    {% endfor %} 
+                </table>
+            </div>
+            <button class="submit" type="submit">Eliminar</button>
+        </form>   
+</body>
+<script>
+    // Función para ocultar el mensaje después de 5 segundos
+    setTimeout(function() {
+      var messages = document.getElementsByClassName('mensaje');
+      if (messages.length > 0) {
+        messages[0].style.display = 'none';
+      }
+    }, 5000);  // 5000 milisegundos = 5 segundos
+</script>
+</html>

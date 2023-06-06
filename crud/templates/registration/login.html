@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>  
+        .login{
+            width: 400px;
+            height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        img{
+            width: 200px;
+            height: auto;
+            padding-top: 150px;
+        }
+        .usuario, .contraseña{
+            padding-top: 30px;
+        }
+        button{
+            width: 200px;
+            height: 50px;
+            position: relative;
+            top: 0px;
+            background-color: transparent;
+            border-color: transparent;
+        }
+        button:hover {
+        background-color: #266fc2; /* Cambio de color al pasar el cursor */
+        
+        }
+        .consulta{
+            position: relative;
+            left: 980px;
+        }
+
+        .barra{
+            width: 100%;
+            background-color: rgba(82, 82, 150, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="barra">
+        <a class="inicio" href="{% url 'inicio' %}"><button>Inicio</button></a>
+    </div>
+    <div class="login">
+        
+        <form action="" enctype="multipart/form-data" method="post" >
+            {% csrf_token %}
+            <img src="{% static 'img/admin2.png' %}" alt="imagen no hay">
+            <div class="usuario">
+                <label for="usuario">Usuario</label>
+                <input type="text" name="username" id="username" required>
+            </div>
+            <br>
+            <div class="contraseña">
+                <label for="contraseña">Contraseña</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <br>
+            <button type="submit">Acceder</button>
+        </form>
+    </div>
+    
+</body>
+</html>

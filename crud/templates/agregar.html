@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agregar</title>
+    <style>
+        td, th{text-align: center;}
+        .barra{
+            width: 100%;
+            background-color: rgba(82, 82, 150, 0.5);
+            padding-top: 15px;
+        }
+        button{
+            width: 200px;
+            height: 50px;
+            position: relative;
+            top: -10px;
+            background-color: transparent;
+            border-color: transparent;
+        }
+        button:hover {
+        background-color: #266fc2; /* Cambio de color al pasar el cursor */
+        }
+        .logout{
+            padding-left:770px;
+        }
+
+        .tablaFacultad{
+            border: 1px solid black;
+            width: 47%;
+            text-align: center;
+            position: relative;
+            top: -150px;
+        }
+
+        .tablaDiscacidad{
+            border: 1px solid black;
+            width: 508px;
+            text-align: center;
+            position: relative;
+            top: -2091px;
+            left: 670px;
+        }
+
+        th, td{
+            border: 1px solid black;
+        }
+
+        .campoFacultad{
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 370px;
+            height: 150px;
+            padding-left: 20px;
+            padding-top: 10px;
+        }
+
+        .campoDiscapacitados{
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 330px;
+            height: 150px;
+            position: relative;
+            left: 400px;
+            top: -182px;
+            padding-left: 20px;
+            padding-top: 10px;
+        }
+        .fecha{
+            position: relative;
+            top: 70px;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 120px;
+            height: 40px;
+            padding-top: 10px;
+        }
+        .submit{
+            position: relative;
+            top: -163px;
+            left: 300px;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 4px rgba(126, 56, 56, 0.2);
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="barra">
+        <a href="{% url 'editar' %}"><button>Modificar</button></a>
+        <a href="{% url 'eliminar' %}"><button>Eliminar</button></a>
+        <a class="logout" href="{% url 'cerrarSesion' %}"><button>Cerrar sesion</button></a>
+    </div>
+    <h1>Vista para agregar</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mensaje">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <form action="" enctype="multipart/form-data" method="post" >
+        {% csrf_token %}
+        <div class="campoFacultad">
+            <div class="Nombrefacultad">
+                <label for="facultad">facultad</label>
+                <select name="ListFacultad" id="idfacultad">
+                    <option value="FCH" selected>Facultad de Ciencias y Humanidades</option>
+                    <option value="FM">Facultad de Medicina</option>
+                    <option value="FIA">Facultad de Ingenieria y Arquitectura</option>
+                    <option value="FE">Facultad de C.C. Económicas</option> 
+                    <option value="FCA">Facultad de Agronomia</option>
+                    <option value="FJCS">Facultad de Jurisprudencia y C.C. Sociales</option>
+                    <option value="FQF">Facultad de Quimica y Farmacia</option>
+                    <option value="FO">Facultad de Odontologia</option>
+                    <option value="FCNMyM">Facultad de Matematicas y C.C. naturales</option>
+                    <option value="FMOri">Facultad Multidisciplinaria Oriental</option>
+                    <option value="FMOcc">Facultad Multidisciplinaria Occidental </option>
+                    <option value="ED">Educacion a distancia </option>
+                </select>
+            </div>
+            <br>
+            <div class="femenino">
+                <label for="femenino">Femeninas</label>
+                <input type="number" name="femenino" id="femenino" required>
+            </div>
+            <br>
+            <div class="masculino">
+                <label for="masculino">Masculinos</label>
+                <input type="number" name="masculino" id="masculino" required>
+            </div>
+            <br>
+            <div class="fecha">
+                <label for="anio">Año</label>
+                <select name="ListAnio">
+                    <option value="2019" selected>2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option> 
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="campoDiscapacitados">
+            <div class="NombreDiscapacidad">
+                <label for="discapacidad">Discapacidad</label>
+                <select name="ListDiscapacidad">
+                    <option value="F" selected>Fisica</option>
+                    <option value="A">Auditiva</option>
+                    <option value="V">Visual</option>
+                    <option value="I">Intelectual</option> 
+                    <option value="P">Psicosocial</option>
+                </select>
+            </div>
+            <br>
+            <div class="femenino">
+                <label for="femenino">Femeninas</label>
+                <input type="number" name="femenino2" id="password" >
+            </div>
+            <br>
+            <div class="masculino">
+                <label for="masculino">Masculinos</label>
+                <input type="number" name="masculino2" id="password" >
+            </div>
+
+        </div>
+        <br>
+        <button class="submit" type="submit">Agregar</button>
+    </form>
+    <br>
+        <div class="tablaFacultad">
+            <table cellspacing="0" cellpadding="5">
+                <th>Fila</th>
+                <th>Identificador</th>
+                <th>Facultad</th>
+                <th>Femeninas</th>
+                <th>Masculinos</th>
+                <th>Año</th>
+                <th>total</th>
+                {% for f in Facultades %}
+                <tr>
+                    <td>{{ forloop.counter }} </td>
+                    <td>{{ f.idFacultad }}</td>
+                    <td>{{f.facultad}}</td>
+                    <td>{{f.femenino}}</td>
+                    <td>{{f.masculino}}</td>
+                    <td>{{f.anio}}</td>
+                    <td>{{f.femenino|add:f.masculino}}</td>
+                </tr>
+                {% endfor %} 
+            </table>
+        </div>
+        <br>
+        <div class="tablaDiscacidad">
+            <table cellspacing="0" cellpadding="5">
+                <th>Fila</th>
+                <th>Identificador</th>
+                <th>Discapacidad</th>
+                <th>Femeninas</th>
+                <th>Masculinos</th>
+                <th>Año</th>
+                <th>total</th>
+                {% for f in Discapacitados %}
+                <tr>
+                    <td>{{ forloop.counter }} </td>
+                    <td>{{ f.idDiscapacidad }}</td>
+                    <td>{{f.discapacidad}}</td>
+                    <td>{{f.femenino}}</td>
+                    <td>{{f.masculino}}</td>
+                    <td>{{f.anio}}</td>
+                    <td>{{f.femenino|add:f.masculino}}</td>
+                </tr>
+                {% endfor %} 
+            </table>
+        </div>
+</body>
+
+<script>
+    // Función para ocultar el mensaje después de 5 segundos
+    setTimeout(function() {
+      var messages = document.getElementsByClassName('mensaje');
+      if (messages.length > 0) {
+        messages[0].style.display = 'none';
+      }
+    }, 5000);  // 5000 milisegundos = 5 segundos
+</script>
+</html>
